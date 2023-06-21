@@ -19,10 +19,9 @@ import com.partie2.gestionPersonne.services.PersonneService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
- 
 
 @RestController
-  @Api(tags =APP_ROOT+"/personnes")
+@Api(tags = APP_ROOT + "/personnes")
 public class PersonneController {
 
 	private PersonneService personneService;
@@ -33,51 +32,41 @@ public class PersonneController {
 		this.personneService = personneService;
 	}
 
-	
-	@PostMapping(path = APP_ROOT+"/personnes/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Enregistrer un personne",notes = "Cette methode permet d'enregistrer ou modifier un personne", response = PersonneDto.class)
-	 
-	public ResponseEntity<PersonneDto>  save(@RequestBody PersonneDto personneDto) {
+	@PostMapping(path = APP_ROOT
+			+ "/personnes/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Enregistrer un personne", notes = "Cette methode permet d'enregistrer ou modifier un personne", response = PersonneDto.class)
+
+	public ResponseEntity<PersonneDto> save(@RequestBody PersonneDto personneDto) {
 
 		return ResponseEntity.ok(personneService.save(personneDto));
 
 	}
-	
-	
-	
 
-	@GetMapping(path = APP_ROOT+"/personnes/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Recherche un personne par ID",notes = "Cette methode permet de chercher un personne par son ID", response = PersonneDto.class)
-	 
-	public ResponseEntity<PersonneDto>  findById(@PathVariable("id") Long id) {
+	@GetMapping(path = APP_ROOT + "/personnes/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Recherche un personne par ID", notes = "Cette methode permet de chercher un personne par son ID", response = PersonneDto.class)
+
+	public ResponseEntity<PersonneDto> findById(@PathVariable("id") Long id) {
 
 		return ResponseEntity.ok(personneService.findById(id));
 
 	}
-	
- 
 
-	@GetMapping(path = APP_ROOT+"/personnes/all", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Renvoi la liste des personne",notes = "Cette methode permet de chercher la list des personnes dans la BDD"
-	                                                   ,responseContainer = "List<personneDto.class>")
-	 
-	public ResponseEntity< List<PersonneDto> >findAll() {
+	@GetMapping(path = APP_ROOT + "/personnes/all", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Renvoi la liste des personne", notes = "Cette methode permet de chercher la list des personnes dans la BDD", responseContainer = "List<personneDto.class>")
 
-		return   ResponseEntity.ok(personneService.findAll());
+	public ResponseEntity<List<PersonneDto>> findAll() {
+
+		return ResponseEntity.ok(personneService.findAll());
 
 	}
-	
-	
-	
-	
-	
-	@DeleteMapping(path = APP_ROOT+"/personnes/delete/{id}")
-	@ApiOperation(value = "Supprimier un personne",notes = "Cette methode permet de supprimier un personne par son id dans la BDD" )
- 
+
+	@DeleteMapping(path = APP_ROOT + "/personnes/delete/{id}")
+	@ApiOperation(value = "Supprimier un personne", notes = "Cette methode permet de supprimier un personne par son id dans la BDD")
+
 	public ResponseEntity findByUsername(@PathVariable("id") Long id) {
 
 		personneService.delete(id);
-		
+
 		return ResponseEntity.ok().build();
 
 	}
